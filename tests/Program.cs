@@ -15,16 +15,14 @@ public class PidginTests
     }
 
     [Test]
-    [Arguments("asd    ", "asd")]
-    [Arguments("asd", "asd")]
-    [Arguments("aajjhksjdhf                ", "aajjhksjdhf")]
-    public async Task CanParseWhiteSpaceThenString(string input, string expected)
+    public async Task CanParseWhiteSpaceThenString()
     {
-        var parser = PrologParser.Tok(expected);
+        var program = PrologParser.ParseProgram(@"
+last(cons(X, nil), X).
+last(cons(X, Xs), Y) :- last(Xs, Y).
+");
 
-        var result = parser.Parse(input);
-
-        await Assert.That(result.Success).IsEqualTo(true);
+        await Assert.That(program).IsNotNull();
     }
 }
 

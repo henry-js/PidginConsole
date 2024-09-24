@@ -5,6 +5,7 @@ namespace Parser;
 
 public class FilterParser
 {
+    static Parser<char, T> Tok<T>
     public Result<char, string> ParseFilterText(string filterText)
     {
         Parser<char, string> keyParser = Letter.AtLeastOnceString();
