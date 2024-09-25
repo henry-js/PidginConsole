@@ -37,7 +37,7 @@ public class PrologParser
 
     static readonly Parser<char, Predicate> _predicate
         = (
-            from name in Try(Name(Lowercase).Before(_openParen))
+            from name in Try(Name().Before(_openParen))
             from args in CommaSeparated(_term).Before(_closeParen)
             select new Predicate(name, args)
         ).Labelled("predicate");
