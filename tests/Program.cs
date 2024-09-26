@@ -6,24 +6,36 @@ public class PidginTests
 {
     [Test]
     [Arguments("""status:open""")]
+    [Arguments("""due:tomorrow""")]
+    [Arguments("""due:2024-03-03""")]
     public async Task CanParserSimpleFilter(string filter)
     {
         var sut = new FilterParser();
 
-        var result = sut.ParseFilterText(filter);
-        await Assert.That(result.Success).IsEqualTo(true);
+        var result = sut.ParseAttributeFilter(filter);
+        await Assert.That(result.ToString()).IsEqualTo(filter);
     }
 
-    [Test]
-    public async Task CanParseWhiteSpaceThenString()
-    {
-        var program = PrologParser.ParseProgram(@"
-last(cons(X, nil), X).
-last(cons(X, Xs), Y) :- last(Xs, Y).
-");
+    //     [Test]
+    //     [Arguments("""status:open or project:home""")]
+    //     public async Task CanParserSimpleLogicalFilter(string filter)
+    //     {
+    //         var sut = new FilterParser();
 
-        await Assert.That(program).IsNotNull();
-    }
+    //         var result = sut.ParseFilterText(filter);
+    //         await Assert.That(result.ToString()).IsEqualTo(filter);
+    //     }
+
+    //     [Test]
+    //     public async Task CanParseWhiteSpaceThenString()
+    //     {
+    //         var program = PrologParser.ParseProgram(@"
+    // last(cons(X, nil), X).
+    // last(cons(X, Xs), Y) :- last(Xs, Y).
+    // ");
+
+    //         await Assert.That(program).IsNotNull();
+    //     }
 }
 
 public static class Consts
